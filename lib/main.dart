@@ -62,7 +62,7 @@ class _AboutState extends State<About> {
               child: Text(
                 "At the beginning, you have 5 seconds to remember the "
                 "location of all the pictures. Next, the pictures are hidden and the game begins. "
-                "For each correct pair you get 5 points, for each incorrect pair you get -1 point. "
+                "For each correct pair you get 5 points, for each incorrect pair you get -2 point. "
                 "As soon as you collect all the pairs or score -5 points, the game is over for you.",
                 style: TextStyle(
                     color: Colors.black,
@@ -123,85 +123,96 @@ class _GameState extends State<Game> {
       delay();
       letsPlay = false;
     }
-    return Scaffold(
-      appBar: AppBar(title: Text(''), backgroundColor: Colors.black),
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        child: Column(
-          children: <Widget>[
-            points != 1 * noOfQuestion
-                ? Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "$points/${1 * noOfQuestion}",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w500),
-                      ),
-                      Text(
-                        "Points",
-                        textAlign: TextAlign.start,
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.w300),
-                      ),
-                    ],
-                  )
-                : Container(),
-            points != 1 * noOfQuestion
-                ? GridView(
-                    shrinkWrap: true,
-                    physics: new NeverScrollableScrollPhysics(),
-                    primary: true,
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                        mainAxisSpacing: 0.0, maxCrossAxisExtent: 125),
-                    children: List.generate(gridViewTiles.length, (index) {
-                      return Tile(
-                        imagePathUrl: gridViewTiles[index].getImageAssetUrl(),
-                        tileIndex: index,
-                        parent: this,
-                      );
-                    }),
-                  )
-                : Center(
-                    child: GestureDetector(
-                        onTap: () {
-                          Navigator.pop(context);
-                          letsPlay = false;
-                          points = 0;
-                        },
-                        child: Column(
-                          children: <Widget>[
-                            Text(
-                              "🦊",
-                              style: TextStyle(fontSize: 80),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              height: 50,
-                              width: 200,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: Colors.black,
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              child: Text(
-                                "Replay",
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 17,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                            ),
-                          ],
-                        )),
-                  )
-          ],
-        ),
-      ),
-    );
+    return WillPopScope(
+        // ignore: missing_return
+        onWillPop: () {
+          Navigator.pop(context, true);
+          letsPlay = false;
+          pairs = 0;
+          points = 0;
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(''),
+            backgroundColor: Colors.black,
+          ),
+          backgroundColor: Colors.white,
+          body: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Column(
+              children: <Widget>[
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "$points",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      "Points",
+                      textAlign: TextAlign.start,
+                      style:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                    ),
+                  ],
+                ),
+                pairs != noOfQuestion && points > -5
+                    ? GridView(
+                        shrinkWrap: true,
+                        physics: new NeverScrollableScrollPhysics(),
+                        primary: true,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                            mainAxisSpacing: 0.0, maxCrossAxisExtent: 125),
+                        children: List.generate(gridViewTiles.length, (index) {
+                          return Tile(
+                            imagePathUrl:
+                                gridViewTiles[index].getImageAssetUrl(),
+                            tileIndex: index,
+                            parent: this,
+                          );
+                        }),
+                      )
+                    : Center(
+                        child: GestureDetector(
+                            onTap: () {
+                              Navigator.pop(context);
+                              letsPlay = false;
+                              pairs = 0;
+                              points = 0;
+                            },
+                            child: Column(
+                              children: <Widget>[
+                                Text(
+                                  "🦊",
+                                  style: TextStyle(fontSize: 80),
+                                ),
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Container(
+                                  height: 50,
+                                  width: 200,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    color: Colors.black,
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  child: Text(
+                                    "Replay",
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                ),
+                              ],
+                            )),
+                      )
+              ],
+            ),
+          ),
+        ));
   }
 
   void delay() {
@@ -228,6 +239,23 @@ class _HomeState extends State<Home> {
     super.initState();
   }
 
+  Future<bool> _onBackPressed() {
+    return showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+                title: Text("Do you want to exit the app?"),
+                actions: <Widget>[
+                  FlatButton(
+                    child: Text("No"),
+                    onPressed: () => Navigator.pop(context, false),
+                  ),
+                  FlatButton(
+                    child: Text("Yes"),
+                    onPressed: () => Navigator.pop(context, true),
+                  )
+                ]));
+  }
+
   void reStart() {
     myPairs = getPairs(gameLevel);
     print("gameLevel : $gameLevel");
@@ -237,128 +265,131 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Memory Game'), backgroundColor: Colors.black),
-      backgroundColor: Colors.white,
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image.asset(
-              "assets/fox.png",
-              height: 200,
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: 150,
-              height: 50,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/second');
-                  gameLevel = "easy";
-                  letsPlay = true;
-                  noOfQuestion = 5;
-                  reStart();
-                },
-                child: Text(
-                  "Easy",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500),
+    return WillPopScope(
+        onWillPop: _onBackPressed,
+        child: Scaffold(
+          appBar:
+              AppBar(title: Text('Memory Game'), backgroundColor: Colors.black),
+          backgroundColor: Colors.white,
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/fox.png",
+                  height: 200,
                 ),
-                color: Colors.yellowAccent,
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: 150,
-              height: 50,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/second');
-                  gameLevel = "medium";
-                  letsPlay = true;
-                  noOfQuestion = 6;
-                  reStart();
-                },
-                child: Text(
-                  "Medium",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500),
+                SizedBox(
+                  height: 30,
                 ),
-                color: Colors.yellowAccent,
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: 150,
-              height: 50,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/second');
-                  gameLevel = "hard";
-                  letsPlay = true;
-                  noOfQuestion = 7;
-                  reStart();
-                },
-                child: Text(
-                  "Hard",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/second');
+                      gameLevel = "easy";
+                      letsPlay = true;
+                      noOfQuestion = 5;
+                      reStart();
+                    },
+                    child: Text(
+                      "Easy",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    color: Colors.yellowAccent,
+                  ),
                 ),
-                color: Colors.yellowAccent,
-              ),
-            ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
-              width: 150,
-              height: 50,
-              child: RaisedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/third');
-                },
-                child: Text(
-                  "About",
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 17,
-                      fontWeight: FontWeight.w500),
+                SizedBox(
+                  height: 30,
                 ),
-                color: Colors.yellowAccent,
-              ),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/second');
+                      gameLevel = "medium";
+                      letsPlay = true;
+                      noOfQuestion = 6;
+                      reStart();
+                    },
+                    child: Text(
+                      "Medium",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    color: Colors.yellowAccent,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/second');
+                      gameLevel = "hard";
+                      letsPlay = true;
+                      noOfQuestion = 7;
+                      reStart();
+                    },
+                    child: Text(
+                      "Hard",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    color: Colors.yellowAccent,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: RaisedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, '/third');
+                    },
+                    child: Text(
+                      "About",
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500),
+                    ),
+                    color: Colors.yellowAccent,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-      bottomSheet: Container(
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 14),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text("Made by D&P"),
-            SizedBox(
-              width: 8,
+          ),
+          bottomSheet: Container(
+            color: Colors.white,
+            padding: EdgeInsets.symmetric(vertical: 14),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text("Made by D&P"),
+                SizedBox(
+                  width: 8,
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }
 
@@ -389,7 +420,8 @@ class _TileState extends State<Tile> {
             if (selectedTile == myPairs[widget.tileIndex].getImageAssetUrl() &&
                 widget.tileIndex != isTapped) {
               isTapped = 100;
-              points = points + 1;
+              pairs = pairs + 1;
+              points = points + 5;
               isCorrect = false;
               print(selectedTile +
                   " and " +
@@ -412,6 +444,7 @@ class _TileState extends State<Tile> {
             } else if (myPairs[widget.tileIndex].getImageAssetUrl() != "") {
               isTapped = 100;
               isCorrect = false;
+              points = points - 2;
               print(selectedTile +
                   " and " +
                   myPairs[widget.tileIndex].getImageAssetUrl());

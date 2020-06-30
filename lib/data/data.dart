@@ -3,6 +3,7 @@ import 'package:flutterapp2/model/tile_model.dart';
 String selectedTile = "";
 int selectedIndex;
 bool selected = true;
+int pairs = 0;
 int points = 0;
 bool letsPlay = false;
 int isTapped = 100;
