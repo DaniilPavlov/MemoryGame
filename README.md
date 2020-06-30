@@ -1,6 +1,4 @@
-# flutterapp2
-
-A new Flutter application.
+This is a new Flutter application "Memory Game".
 
 ## Getting Started
 
