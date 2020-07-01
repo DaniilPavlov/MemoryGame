@@ -155,17 +155,17 @@ class _GameState extends State<Game> {
                     Text(
                       "$seconds",
                       style:
-                      TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     Text(
                       "Seconds",
                       textAlign: TextAlign.start,
                       style:
-                      TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                   ],
                 ),
-                pairs != noOfQuestion && points > -100
+                pairs != noOfQuestion && points > -5
                     ? GridView(
                         shrinkWrap: true,
                         physics: new NeverScrollableScrollPhysics(),
@@ -173,9 +173,8 @@ class _GameState extends State<Game> {
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             mainAxisSpacing: 0.0, maxCrossAxisExtent: 125),
                         children: List.generate(gridViewTiles.length, (index) {
-                          if(letsPlay) {
+                          if (letsPlay) {
                             delay();
-                            letsPlay = false;
                           }
                           return Tile(
                             imagePathUrl:
@@ -197,10 +196,8 @@ class _GameState extends State<Game> {
                         GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
-                              letsPlay = false;
                               pairs = 0;
                               points = 0;
-                              stopTimer();
                             },
                             child: Column(
                               children: <Widget>[
@@ -231,12 +228,11 @@ class _GameState extends State<Game> {
 
   void delay() {
     Future.delayed(const Duration(seconds: 5), () {
-// Here you can write your code
       setState(() {
-        // Here you can write your code for open new view
         questionPairs = getQuestionPairs(gameLevel);
         gridViewTiles = questionPairs;
         selected = false;
+        letsPlay = false;
       });
     });
   }
@@ -274,6 +270,7 @@ class _HomeState extends State<Home> {
     myPairs = getPairs(gameLevel);
     print("gameLevel : $gameLevel");
     myPairs.shuffle();
+    selected = true;
     gridViewTiles = myPairs;
   }
 
@@ -305,8 +302,8 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
                       gameLevel = "easy";
-                      letsPlay = true;
                       noOfQuestion = 5;
+                      letsPlay = true;
                       reStart();
                     },
                     child: Text(
@@ -429,10 +426,9 @@ class _TileState extends State<Tile> {
           setState(() {
             myPairs[widget.tileIndex].setIsSelected(true);
           });
-          if (selectedTile != "") {
+          if (selectedTile != "" && widget.tileIndex != isTapped) {
             /// testing if the selected tiles are same
-            if (selectedTile == myPairs[widget.tileIndex].getImageAssetUrl() &&
-                widget.tileIndex != isTapped) {
+            if (selectedTile == myPairs[widget.tileIndex].getImageAssetUrl()) {
               isTapped = 100;
               pairs = pairs + 1;
               points = points + 5;
@@ -450,9 +446,7 @@ class _TileState extends State<Tile> {
                 myPairs[widget.tileIndex] = tileModel;
                 myPairs[selectedIndex] = tileModel;
                 this.widget.parent.setState(() {});
-                setState(() {
-                  selected = false;
-                });
+                selected = false;
                 selectedTile = "";
               });
             } else if (myPairs[widget.tileIndex].getImageAssetUrl() != "") {
@@ -471,9 +465,7 @@ class _TileState extends State<Tile> {
                   myPairs[widget.tileIndex].setIsSelected(false);
                   myPairs[selectedIndex].setIsSelected(false);
                 });
-                setState(() {
-                  selected = false;
-                });
+                selected = false;
               });
 
               selectedTile = "";
