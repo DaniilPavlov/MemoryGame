@@ -153,12 +153,12 @@ class _GameState extends State<Game> {
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                     ),
                     Text(
-                      "$seconds",
+                      "$minutes : $seconds : $mills",
                       style:
                           TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
                     ),
                     Text(
-                      "Seconds",
+                      "Time",
                       textAlign: TextAlign.start,
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
@@ -233,6 +233,7 @@ class _GameState extends State<Game> {
         gridViewTiles = questionPairs;
         selected = false;
         letsPlay = false;
+        startWatch();
       });
     });
   }
@@ -266,12 +267,16 @@ class _HomeState extends State<Home> {
                 ]));
   }
 
+
+  // ignore: missing_return
   void reStart() {
     myPairs = getPairs(gameLevel);
     print("gameLevel : $gameLevel");
     myPairs.shuffle();
     selected = true;
     gridViewTiles = myPairs;
+    stopWatch();
+    resetWatch();
   }
 
   @override

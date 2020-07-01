@@ -1,40 +1,64 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutterapp2/model/tile_model.dart';
 
-int seconds = 0;
-int minutes = 0;
-
-void startTimer() {
-//  seconds = 0;
-////  my_timer = Timer.periodic(Duration(seconds: 1), (timer) {
-////    seconds++;
-////  });
-  timer.cancel();
-  isActive = true;
-  secondsPassed = 0;
-  timer = Timer.periodic(duration, (Timer t) {
-    handleTick();
-  });
-}
-
-void stopTimer() {
-  isActive = false;
-  secondsPassed = 0;
-  seconds = 0;
-}
-
-const duration = const Duration(seconds: 1);
-
-int secondsPassed = 0;
-bool isActive = false;
-
+Stopwatch watch = new Stopwatch();
 Timer timer;
+int hundreds = 0;
+int mills = 0;
+int seconds = 0;
+int pingvin = 0;
+int minutes = 0;
+String elapsedTime = '';
 
-void handleTick() {
-  if (isActive) {
-    secondsPassed = secondsPassed + 1;
-    seconds = secondsPassed;
-    minutes = secondsPassed ~/ 60;
+updateTime(Timer timer) {
+  if (watch.isRunning) {
+    var milliseconds = watch.elapsedMilliseconds;
+    hundreds = (milliseconds / 10).truncate();
+    seconds = (hundreds / 100).truncate();
+    minutes = (seconds / 60).truncate();
+    mills = watch.elapsedMilliseconds % 1000;
+    elapsedTime = transformMilliseconds(watch.elapsedMilliseconds);
+    if (seconds > 59) {
+      seconds = seconds - (minutes * 59);
+      seconds = seconds - minutes;
+    }
   }
+}
+
+startWatch() {
+  watch.start();
+  timer = new Timer.periodic(new Duration(milliseconds: 100), updateTime);
+  pingvin = 1;
+}
+
+stopWatch() {
+  watch.stop();
+  setTime();
+}
+
+resetWatch() {
+  watch.reset();
+  setTime();
+  hundreds = 0;
+  seconds = 0;
+  minutes = 0;
+  mills = 0;
+}
+
+setTime() {
+  var timeSoFar = watch.elapsedMilliseconds;
+  elapsedTime = transformMilliseconds(timeSoFar);
+}
+
+transformMilliseconds(int milliseconds) {
+  hundreds = (milliseconds / 10).truncate();
+  seconds = (hundreds / 100).truncate();
+  minutes = (seconds / 60).truncate();
+
+  String minuteStr = (minutes % 60).toString().padLeft(2, '0');
+  String secondsStr = (seconds % 60).toString().padLeft(2, '0');
+  String hundredsStr = (hundreds % 100).toString().padLeft(2, '0');
+  return "$minuteStr : $secondsStr : $hundredsStr";
 }
