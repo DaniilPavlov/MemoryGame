@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'data/data.dart';
+import 'data/stop_watch.dart';
 import 'model/tile_model.dart';
 
 List<TileModel> gridViewTiles = new List<TileModel>();
@@ -119,10 +120,6 @@ class Game extends StatefulWidget {
 class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
-    if (letsPlay == true) {
-      delay();
-      letsPlay = false;
-    }
     return WillPopScope(
         // ignore: missing_return
         onWillPop: () {
@@ -155,9 +152,20 @@ class _GameState extends State<Game> {
                       style:
                           TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
                     ),
+                    Text(
+                      "$seconds",
+                      style:
+                      TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+                    ),
+                    Text(
+                      "Seconds",
+                      textAlign: TextAlign.start,
+                      style:
+                      TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
+                    ),
                   ],
                 ),
-                pairs != noOfQuestion && points > -5
+                pairs != noOfQuestion && points > -100
                     ? GridView(
                         shrinkWrap: true,
                         physics: new NeverScrollableScrollPhysics(),
@@ -165,6 +173,10 @@ class _GameState extends State<Game> {
                         gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                             mainAxisSpacing: 0.0, maxCrossAxisExtent: 125),
                         children: List.generate(gridViewTiles.length, (index) {
+                          if(letsPlay) {
+                            delay();
+                            letsPlay = false;
+                          }
                           return Tile(
                             imagePathUrl:
                                 gridViewTiles[index].getImageAssetUrl(),
@@ -174,22 +186,24 @@ class _GameState extends State<Game> {
                         }),
                       )
                     : Center(
-                        child: GestureDetector(
+                        child: Column(children: <Widget>[
+                        Text(
+                          "🦊",
+                          style: TextStyle(fontSize: 80),
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        GestureDetector(
                             onTap: () {
                               Navigator.pop(context);
                               letsPlay = false;
                               pairs = 0;
                               points = 0;
+                              stopTimer();
                             },
                             child: Column(
                               children: <Widget>[
-                                Text(
-                                  "🦊",
-                                  style: TextStyle(fontSize: 80),
-                                ),
-                                SizedBox(
-                                  height: 20,
-                                ),
                                 Container(
                                   height: 50,
                                   width: 200,
@@ -208,7 +222,7 @@ class _GameState extends State<Game> {
                                 ),
                               ],
                             )),
-                      )
+                      ]))
               ],
             ),
           ),
