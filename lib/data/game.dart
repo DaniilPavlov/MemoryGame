@@ -28,91 +28,144 @@ class _GameState extends State<Game> {
           ),
           backgroundColor: Colors.white,
           body: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: Column(
               children: <Widget>[
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      "$points",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
-                    ),
-                    Text(
-                      "Points",
-                      textAlign: TextAlign.start,
-                      style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w300),
-                    ),
-                  ],
-                ),
                 pairs != noOfQuestion && points > -5
-                    ? GridView(
-                        shrinkWrap: true,
-                        physics: new NeverScrollableScrollPhysics(),
-                        primary: true,
-                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                            mainAxisSpacing: 0.0, maxCrossAxisExtent: 125),
-                        children: List.generate(gridViewTiles.length, (index) {
-                          if (letsPlay) {
-                            delay();
-                          }
-                          return Tile(
-                            imagePathUrl:
-                                gridViewTiles[index].getImageAssetUrl(),
-                            tileIndex: index,
-                            parent: this,
-                          );
-                        }),
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "$points",
+                            style: TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.w500),
+                          ),
+                          Text(
+                            "Points",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w300),
+                          ),
+                          GridView(
+                            shrinkWrap: true,
+                            physics: new NeverScrollableScrollPhysics(),
+                            primary: true,
+                            gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                                    mainAxisSpacing: 0.0,
+                                    maxCrossAxisExtent: 125),
+                            children:
+                                List.generate(gridViewTiles.length, (index) {
+                              if (letsPlay) {
+                                delay();
+                              }
+                              return Tile(
+                                imagePathUrl:
+                                    gridViewTiles[index].getImageAssetUrl(),
+                                tileIndex: index,
+                                parent: this,
+                              );
+                            }),
+                          )
+                        ],
                       )
-                    : Center(
-                        child: Column(children: <Widget>[
-                        Text(
-                          "$minutes : $seconds : $mills",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.w500),
-                        ),
-                        Text(
-                          "Time",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w300),
-                        ),
-                        Text(
-                          "🦊",
-                          style: TextStyle(fontSize: 80),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        GestureDetector(
-                            onTap: () {
-                              Navigator.pop(context);
-                              pairs = 0;
-                              points = 0;
-                            },
-                            child: Column(
-                              children: <Widget>[
-                                Container(
-                                  height: 50,
-                                  width: 200,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                  child: Text(
-                                    "Replay",
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 17,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ),
-                              ],
-                            )),
-                      ]))
+                    : points > -5
+                        ? Center(
+                            child: Column(children: <Widget>[
+                            Text(
+                              "$minutes : $seconds : $mills",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              "Time",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              addBonus(),
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              "Points in total",
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  fontSize: 14, fontWeight: FontWeight.w300),
+                            ),
+                            Text(
+                              medal,
+                              style: TextStyle(fontSize: 80),
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  pairs = 0;
+                                  points = 0;
+                                },
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 50,
+                                      width: 200,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                      child: Text(
+                                        "Back to main menu",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ]))
+                        : Center(
+                            child: Column(children: <Widget>[
+                            Text(
+                              "Try harder next time!",
+                              style: TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.w500),
+                            ),
+                            Text(
+                              "🔎",
+                              style: TextStyle(fontSize: 80),
+                            ),
+                            GestureDetector(
+                                onTap: () {
+                                  Navigator.pop(context);
+                                  pairs = 0;
+                                  points = 0;
+                                },
+                                child: Column(
+                                  children: <Widget>[
+                                    Container(
+                                      height: 50,
+                                      width: 200,
+                                      alignment: Alignment.center,
+                                      decoration: BoxDecoration(
+                                        color: Colors.black,
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                      child: Text(
+                                        "Back to main menu",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                            fontWeight: FontWeight.w500),
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                          ])),
               ],
             ),
           ),

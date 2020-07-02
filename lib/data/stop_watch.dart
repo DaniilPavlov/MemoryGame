@@ -1,8 +1,5 @@
 import 'dart:async';
 
-import 'package:flutter/material.dart';
-import 'package:flutterapp2/model/tile_model.dart';
-
 Stopwatch watch = new Stopwatch();
 Timer timer;
 int hundreds = 0;
