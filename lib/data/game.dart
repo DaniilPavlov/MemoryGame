@@ -72,6 +72,9 @@ class _GameState extends State<Game> {
                     : points > -5
                         ? Center(
                             child: Column(children: <Widget>[
+                              SizedBox(
+                                height: 20,
+                              ),
                             Text(
                               "$minutes : $seconds : $mills",
                               style: TextStyle(
@@ -83,6 +86,9 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w300),
                             ),
+                              SizedBox(
+                                height: 20,
+                              ),
                             Text(
                               addBonus(),
                               style: TextStyle(
@@ -94,12 +100,15 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w300),
                             ),
+                              SizedBox(
+                                height: 50,
+                              ),
                             Text(
                               medal,
                               style: TextStyle(fontSize: 80),
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 50,
                             ),
                             GestureDetector(
                                 onTap: () {
@@ -110,7 +119,7 @@ class _GameState extends State<Game> {
                                 child: Column(
                                   children: <Widget>[
                                     Container(
-                                      height: 50,
+                                      height: 80,
                                       width: 200,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
@@ -130,15 +139,24 @@ class _GameState extends State<Game> {
                           ]))
                         : Center(
                             child: Column(children: <Widget>[
+                              SizedBox(
+                                height: 50,
+                              ),
                             Text(
                               "Try harder next time!",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w500),
                             ),
+                              SizedBox(
+                                height: 50,
+                              ),
                             Text(
                               "🔎",
                               style: TextStyle(fontSize: 80),
                             ),
+                              SizedBox(
+                                height: 50,
+                              ),
                             GestureDetector(
                                 onTap: () {
                                   Navigator.pop(context);
@@ -148,7 +166,7 @@ class _GameState extends State<Game> {
                                 child: Column(
                                   children: <Widget>[
                                     Container(
-                                      height: 50,
+                                      height: 80,
                                       width: 200,
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(

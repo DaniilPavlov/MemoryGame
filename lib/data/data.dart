@@ -193,33 +193,39 @@ List<TileModel> getQuestionPairs(String gameLevel) {
 
 String addBonus() {
   if (gameLevel == "easy") {
-    if ((seconds + minutes * 60) * 1000 + mills > 22000) bonus = 0;
-    if ((seconds + minutes * 60) * 1000 + mills < 22000) bonus = 1;
-    if ((seconds + minutes * 60) * 1000 + mills < 19000) bonus = 2;
-    if ((seconds + minutes * 60) * 1000 + mills < 16000) bonus = 3;
-    if (points + bonus <= 10) medal = "🥉";
-    if (10 < points + bonus && points + bonus <= 20) medal = "🥈";
-    if (points + bonus > 20) medal = "🥇";
+    if ((seconds + minutes * 60) * 1000 + mills > 23000) bonus = 0;
+    if ((seconds + minutes * 60) * 1000 + mills < 23000) bonus = 1;
+    if ((seconds + minutes * 60) * 1000 + mills < 20000) bonus = 2;
+    if ((seconds + minutes * 60) * 1000 + mills < 17000) bonus = 3;
+    if (points + bonus <= 20) medal = "🥉";
+    if (20 < points + bonus && points + bonus <= 25) medal = "🥈";
+    if (points + bonus > 25) medal = "🥇";
   }
 
   if (gameLevel == "medium") {
-    if ((seconds + minutes * 60) * 1000 + mills > 25000) bonus = 0;
-    if ((seconds + minutes * 60) * 1000 + mills < 25000) bonus = 3;
+    if ((seconds + minutes * 60) * 1000 + mills > 32000) bonus = 0;
+    if ((seconds + minutes * 60) * 1000 + mills < 32000) bonus = 1;
+    if ((seconds + minutes * 60) * 1000 + mills < 29000) bonus = 2;
+    if ((seconds + minutes * 60) * 1000 + mills < 26000) bonus = 3;
     if ((seconds + minutes * 60) * 1000 + mills < 23000) bonus = 4;
     if ((seconds + minutes * 60) * 1000 + mills < 20000) bonus = 5;
-    if (points + bonus <= 13) medal = "🥉";
-    if (13 < points + bonus && points + bonus <= 23) medal = "🥈";
-    if (points + bonus > 23) medal = "🥇";
+    if (points + bonus <= 25) medal = "🥉";
+    if (25 < points + bonus && points + bonus <= 30) medal = "🥈";
+    if (points + bonus > 30) medal = "🥇";
   }
 
   if (gameLevel == "hard") {
-    if ((seconds + minutes * 60) * 1000 + mills > 27000) bonus = 0;
-    if ((seconds + minutes * 60) * 1000 + mills < 27000) bonus = 5;
-    if ((seconds + minutes * 60) * 1000 + mills < 25000) bonus = 7;
-    if ((seconds + minutes * 60) * 1000 + mills < 22000) bonus = 9;
-    if (points + bonus <= 16) medal = "🥉";
-    if (16 < points + bonus && points + bonus <= 26) medal = "🥈";
-    if (points + bonus > 26) medal = "🥇";
+    if ((seconds + minutes * 60) * 1000 + mills > 41000) bonus = 0;
+    if ((seconds + minutes * 60) * 1000 + mills < 41000) bonus = 1;
+    if ((seconds + minutes * 60) * 1000 + mills < 38000) bonus = 2;
+    if ((seconds + minutes * 60) * 1000 + mills < 35000) bonus = 3;
+    if ((seconds + minutes * 60) * 1000 + mills < 32000) bonus = 4;
+    if ((seconds + minutes * 60) * 1000 + mills < 29000) bonus = 5;
+    if ((seconds + minutes * 60) * 1000 + mills < 26000) bonus = 6;
+    if ((seconds + minutes * 60) * 1000 + mills < 23000) bonus = 7;
+    if (points + bonus <= 30) medal = "🥉";
+    if (30 < points + bonus && points + bonus <= 35) medal = "🥈";
+    if (points + bonus > 35) medal = "🥇";
   }
 
   return (points + bonus).toString() +

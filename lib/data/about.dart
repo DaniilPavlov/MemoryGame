@@ -54,7 +54,19 @@ class _AboutState extends State<About> {
               ),
             ),
             SizedBox(
-              height: 60,
+              height: 30,
+            ),
+            SizedBox(
+              child: Text(
+                " The final reward depends on the speed and accuracy of execution.",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 19,
+                    fontWeight: FontWeight.w300),
+              ),
+            ),
+            SizedBox(
+              height: 20,
             ),
             SizedBox(
                 child: Center(
@@ -68,7 +80,7 @@ class _AboutState extends State<About> {
               ),
             )),
             SizedBox(
-              height: 50,
+              height: 20,
             ),
             SizedBox(
                 child: Center(
@@ -83,10 +95,7 @@ class _AboutState extends State<About> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text("Made by D&P"),
-            SizedBox(
-              width: 8,
-            ),
+            Text("Special thank you to Nikolay"),
           ],
         ),
       ),
