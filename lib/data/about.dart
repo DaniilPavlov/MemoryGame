@@ -12,10 +12,11 @@ class _AboutState extends State<About> {
       appBar: AppBar(title: Text("Info"), backgroundColor: Colors.black),
       backgroundColor: Colors.white,
       body: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           width: MediaQuery.of(context).size.width,
           child: Column(children: <Widget>[
-            SizedBox(
+            Container(
+              padding: EdgeInsets.all(20),
               child: Text(
                 "Hello there! This is a game where you need to find a pair for each of the pictures.",
                 style: TextStyle(
@@ -24,24 +25,19 @@ class _AboutState extends State<About> {
                     fontWeight: FontWeight.w300),
               ),
             ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
+            Container(
                 child: Align(
-              alignment: Alignment.centerLeft,
+              alignment: Alignment.center,
               child: Text(
-                "Rules:",
+                "Rules",
                 style: TextStyle(
                     color: Colors.black,
-                    fontSize: 28,
+                    fontSize: 32,
                     fontWeight: FontWeight.w700),
               ),
             )),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
+            Container(
+              padding: EdgeInsets.all(20),
               child: Text(
                 "At the beginning, you have 5 seconds to remember the "
                 "location of all the pictures. Next, the pictures are hidden and the game begins. "
@@ -53,10 +49,8 @@ class _AboutState extends State<About> {
                     fontWeight: FontWeight.w300),
               ),
             ),
-            SizedBox(
-              height: 30,
-            ),
-            SizedBox(
+            Container(
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 40),
               child: Text(
                 " The final reward depends on the speed and accuracy of execution.",
                 style: TextStyle(
@@ -65,10 +59,7 @@ class _AboutState extends State<About> {
                     fontWeight: FontWeight.w300),
               ),
             ),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
+            Container(
                 child: Center(
               child: Text(
                 "I hope you will enjoy it!",
@@ -79,15 +70,13 @@ class _AboutState extends State<About> {
                     fontStyle: FontStyle.italic),
               ),
             )),
-            SizedBox(
-              height: 20,
-            ),
-            SizedBox(
+            Container(
+                padding: EdgeInsets.only(left: 20, right: 20, top: 40),
                 child: Center(
                     child: Text(
-              " 🚀",
-              style: TextStyle(fontSize: 80),
-            ))),
+                  " 🚀",
+                  style: TextStyle(fontSize: 80),
+                ))),
           ])),
       bottomSheet: Container(
         color: Colors.white,
