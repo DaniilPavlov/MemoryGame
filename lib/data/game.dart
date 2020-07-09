@@ -27,7 +27,7 @@ class _GameState extends State<Game> {
             backgroundColor: Colors.black,
           ),
           backgroundColor: Colors.white,
-          body: Container(
+          body: SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
             child: Column(
               children: <Widget>[
@@ -72,13 +72,13 @@ class _GameState extends State<Game> {
                     : points > -5
                         ? Center(
                             child: Column(children: <Widget>[
-                              SizedBox(
-                                height: 20,
+                            Container(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text(
+                                "$minutes : $seconds : $mills",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500),
                               ),
-                            Text(
-                              "$minutes : $seconds : $mills",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
                             ),
                             Text(
                               "Time",
@@ -86,13 +86,13 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w300),
                             ),
-                              SizedBox(
-                                height: 20,
+                            Container(
+                              padding: EdgeInsets.only(top: 20),
+                              child: Text(
+                                addBonus(),
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500),
                               ),
-                            Text(
-                              addBonus(),
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
                             ),
                             Text(
                               "Points in total",
@@ -100,15 +100,12 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 14, fontWeight: FontWeight.w300),
                             ),
-                              SizedBox(
-                                height: 50,
+                            Container(
+                              padding: EdgeInsets.only(top: 50, bottom: 50),
+                              child: Text(
+                                medal,
+                                style: TextStyle(fontSize: 80),
                               ),
-                            Text(
-                              medal,
-                              style: TextStyle(fontSize: 80),
-                            ),
-                            SizedBox(
-                              height: 50,
                             ),
                             GestureDetector(
                                 onTap: () {
@@ -139,24 +136,21 @@ class _GameState extends State<Game> {
                           ]))
                         : Center(
                             child: Column(children: <Widget>[
-                              SizedBox(
-                                height: 50,
+                            Container(
+                              padding: EdgeInsets.only(top: 50, bottom: 50),
+                              child: Text(
+                                "Try harder next time!",
+                                style: TextStyle(
+                                    fontSize: 20, fontWeight: FontWeight.w500),
                               ),
-                            Text(
-                              "Try harder next time!",
-                              style: TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.w500),
                             ),
-                              SizedBox(
-                                height: 50,
-                              ),
                             Text(
                               "🔎",
                               style: TextStyle(fontSize: 80),
                             ),
-                              SizedBox(
-                                height: 50,
-                              ),
+                            SizedBox(
+                              height: 50,
+                            ),
                             GestureDetector(
                                 onTap: () {
                                   Navigator.pop(context);

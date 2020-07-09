@@ -11,11 +11,11 @@ class _AboutState extends State<About> {
     return Scaffold(
       appBar: AppBar(title: Text("Info"), backgroundColor: Colors.black),
       backgroundColor: Colors.white,
-      body: Container(
+      body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-          width: MediaQuery.of(context).size.width,
           child: Column(children: <Widget>[
             Container(
+              alignment: Alignment.center,
               padding: EdgeInsets.all(20),
               child: Text(
                 "Hello there! This is a game where you need to find a pair for each of the pictures.",
@@ -26,8 +26,6 @@ class _AboutState extends State<About> {
               ),
             ),
             Container(
-                child: Align(
-              alignment: Alignment.center,
               child: Text(
                 "Rules",
                 style: TextStyle(
@@ -35,7 +33,7 @@ class _AboutState extends State<About> {
                     fontSize: 32,
                     fontWeight: FontWeight.w700),
               ),
-            )),
+            ),
             Container(
               padding: EdgeInsets.all(20),
               child: Text(
@@ -50,7 +48,7 @@ class _AboutState extends State<About> {
               ),
             ),
             Container(
-              padding: EdgeInsets.only(left: 20, right: 20, bottom: 40),
+              padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
               child: Text(
                 " The final reward depends on the speed and accuracy of execution.",
                 style: TextStyle(
@@ -60,7 +58,7 @@ class _AboutState extends State<About> {
               ),
             ),
             Container(
-                child: Center(
+              padding: EdgeInsets.all(20),
               child: Text(
                 "I hope you will enjoy it!",
                 style: TextStyle(
@@ -69,9 +67,9 @@ class _AboutState extends State<About> {
                     fontWeight: FontWeight.w900,
                     fontStyle: FontStyle.italic),
               ),
-            )),
+            ),
             Container(
-                padding: EdgeInsets.only(left: 20, right: 20, top: 40),
+                padding: EdgeInsets.only(left: 20, right: 20, bottom: 20),
                 child: Center(
                     child: Text(
                   " 🚀",
@@ -80,7 +78,7 @@ class _AboutState extends State<About> {
           ])),
       bottomSheet: Container(
         color: Colors.white,
-        padding: EdgeInsets.symmetric(vertical: 14),
+        padding: EdgeInsets.symmetric(vertical: 12),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[

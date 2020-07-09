@@ -67,22 +67,24 @@ class _HomeState extends State<Home> {
           appBar:
               AppBar(title: Text('Memory Game'), backgroundColor: Colors.black),
           backgroundColor: Colors.white,
-          body: Container(
-            width: MediaQuery.of(context).size.width,
+          body: SingleChildScrollView(
+//            width: MediaQuery.of(context).size.width,
+//            height: MediaQuery.of(context).size.height,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+//              mainAxisAlignment: MainAxisAlignment.center,
+//              crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Image.asset(
-                  "assets/fox.png",
-                  height: 200,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
+                Container(
+                    padding: EdgeInsets.only(top: 30),
+                    alignment: Alignment.center,
+                    child: Image.asset(
+                      "assets/fox.png",
+                      height: MediaQuery.of(context).size.height / 3.5,
+                    )),
+                Container(
+                  padding: EdgeInsets.only(top: 30),
                   width: 150,
-                  height: 50,
+                  height: 80,
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
@@ -101,12 +103,10 @@ class _HomeState extends State<Home> {
                     color: Colors.yellowAccent,
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
+                Container(
+                  padding: EdgeInsets.only(top: 30),
                   width: 150,
-                  height: 50,
+                  height: 80,
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
@@ -125,12 +125,10 @@ class _HomeState extends State<Home> {
                     color: Colors.yellowAccent,
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
+                Container(
+                  padding: EdgeInsets.only(top: 30),
                   width: 150,
-                  height: 50,
+                  height: 80,
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
@@ -149,12 +147,10 @@ class _HomeState extends State<Home> {
                     color: Colors.yellowAccent,
                   ),
                 ),
-                SizedBox(
-                  height: 30,
-                ),
-                SizedBox(
+                Container(
+                  padding: EdgeInsets.only(top: 30),
                   width: 150,
-                  height: 50,
+                  height: 80,
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/third');
@@ -169,12 +165,15 @@ class _HomeState extends State<Home> {
                     color: Colors.yellowAccent,
                   ),
                 ),
+                SizedBox(
+                  height: 60,
+                ),
               ],
             ),
           ),
           bottomSheet: Container(
             color: Colors.white,
-            padding: EdgeInsets.symmetric(vertical: 14),
+            padding: EdgeInsets.symmetric(vertical: 12),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
