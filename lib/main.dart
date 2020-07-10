@@ -67,7 +67,8 @@ class _HomeState extends State<Home> {
           appBar:
               AppBar(title: Text('Memory Game'), backgroundColor: Colors.black),
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
+          body: Center(
+              child: SingleChildScrollView(
 //            width: MediaQuery.of(context).size.width,
 //            height: MediaQuery.of(context).size.height,
             child: Column(
@@ -89,7 +90,7 @@ class _HomeState extends State<Home> {
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
                       gameLevel = "easy";
-                      noOfQuestion = 5;
+                      noOfQuestion = 6;
                       letsPlay = true;
                       reStart();
                     },
@@ -112,7 +113,7 @@ class _HomeState extends State<Home> {
                       Navigator.pushNamed(context, '/second');
                       gameLevel = "medium";
                       letsPlay = true;
-                      noOfQuestion = 6;
+                      noOfQuestion = 7;
                       reStart();
                     },
                     child: Text(
@@ -134,7 +135,7 @@ class _HomeState extends State<Home> {
                       Navigator.pushNamed(context, '/second');
                       gameLevel = "hard";
                       letsPlay = true;
-                      noOfQuestion = 7;
+                      noOfQuestion = 8;
                       reStart();
                     },
                     child: Text(
@@ -166,11 +167,11 @@ class _HomeState extends State<Home> {
                   ),
                 ),
                 SizedBox(
-                  height: 60,
+                  height: 40,
                 ),
               ],
             ),
-          ),
+          )),
           bottomSheet: Container(
             color: Colors.white,
             padding: EdgeInsets.symmetric(vertical: 12),

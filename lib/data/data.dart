@@ -67,6 +67,13 @@ List<TileModel> getPairs(String gameLevel) {
     pairs.add(tileModel);
     pairs.add(tileModel);
     tileModel = new TileModel();
+
+    //6
+    tileModel.setImageAssetPath("assets/elephant.png");
+    tileModel.setIsSelected(false);
+    pairs.add(tileModel);
+    pairs.add(tileModel);
+    tileModel = new TileModel();
   }
 
   if (gameLevel == "medium") {
@@ -107,6 +114,13 @@ List<TileModel> getPairs(String gameLevel) {
 
     //6
     tileModel.setImageAssetPath("assets/rabbit.png");
+    tileModel.setIsSelected(false);
+    pairs.add(tileModel);
+    pairs.add(tileModel);
+    tileModel = new TileModel();
+
+    //7
+    tileModel.setImageAssetPath("assets/hippo.png");
     tileModel.setIsSelected(false);
     pairs.add(tileModel);
     pairs.add(tileModel);
@@ -162,6 +176,13 @@ List<TileModel> getPairs(String gameLevel) {
     pairs.add(tileModel);
     pairs.add(tileModel);
     tileModel = new TileModel();
+
+    //8
+    tileModel.setImageAssetPath("assets/elephant.png");
+    tileModel.setIsSelected(false);
+    pairs.add(tileModel);
+    pairs.add(tileModel);
+    tileModel = new TileModel();
   }
 
   return pairs;
@@ -174,11 +195,11 @@ List<TileModel> getQuestionPairs(String gameLevel) {
 
   int noOfQuestion;
   if (gameLevel == "easy") {
-    noOfQuestion = 5;
-  } else if (gameLevel == "medium") {
     noOfQuestion = 6;
-  } else if (gameLevel == "hard") {
+  } else if (gameLevel == "medium") {
     noOfQuestion = 7;
+  } else if (gameLevel == "hard") {
+    noOfQuestion = 8;
   }
 
   for (int i = 0; i < noOfQuestion * 2; i++) {

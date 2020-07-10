@@ -27,13 +27,13 @@ class _GameState extends State<Game> {
             backgroundColor: Colors.black,
           ),
           backgroundColor: Colors.white,
-          body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
+          body: Center(
+              child: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
             child: Column(
               children: <Widget>[
                 pairs != noOfQuestion && points > -5
                     ? Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Text(
                             "$points",
@@ -51,9 +51,8 @@ class _GameState extends State<Game> {
                             physics: new NeverScrollableScrollPhysics(),
                             primary: true,
                             gridDelegate:
-                                SliverGridDelegateWithMaxCrossAxisExtent(
-                                    mainAxisSpacing: 0.0,
-                                    maxCrossAxisExtent: 125),
+                                SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 4, childAspectRatio: 1),
                             children:
                                 List.generate(gridViewTiles.length, (index) {
                               if (letsPlay) {
@@ -73,7 +72,7 @@ class _GameState extends State<Game> {
                         ? Center(
                             child: Column(children: <Widget>[
                             Container(
-                              padding: EdgeInsets.only(top: 20),
+                              padding: EdgeInsets.only(top: 10),
                               child: Text(
                                 "$minutes : $seconds : $mills",
                                 style: TextStyle(
@@ -101,7 +100,7 @@ class _GameState extends State<Game> {
                                   fontSize: 14, fontWeight: FontWeight.w300),
                             ),
                             Container(
-                              padding: EdgeInsets.only(top: 50, bottom: 50),
+                              padding: EdgeInsets.only(top: 30, bottom: 30),
                               child: Text(
                                 medal,
                                 style: TextStyle(fontSize: 80),
@@ -180,7 +179,7 @@ class _GameState extends State<Game> {
                           ])),
               ],
             ),
-          ),
+          )),
         ));
   }
 

@@ -16,7 +16,8 @@ class _AboutState extends State<About> {
           child: Column(children: <Widget>[
             Container(
               alignment: Alignment.center,
-              padding: EdgeInsets.all(20),
+              padding:
+                  EdgeInsets.only(left: 20, right: 20, bottom: 20, top: 10),
               child: Text(
                 "Hello there! This is a game where you need to find a pair for each of the pictures.",
                 style: TextStyle(
@@ -58,7 +59,8 @@ class _AboutState extends State<About> {
               ),
             ),
             Container(
-              padding: EdgeInsets.all(20),
+              padding:
+                  EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 10),
               child: Text(
                 "I hope you will enjoy it!",
                 style: TextStyle(
