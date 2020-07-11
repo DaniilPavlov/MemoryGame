@@ -23,7 +23,7 @@ class _GameState extends State<Game> {
         },
         child: Scaffold(
           appBar: AppBar(
-            title: Text(''),
+            title: Text('$gameLevel'),
             backgroundColor: Colors.black,
           ),
           backgroundColor: Colors.white,

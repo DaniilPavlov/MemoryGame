@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
-                      gameLevel = "easy";
+                      gameLevel = "Easy";
                       noOfQuestion = 6;
                       letsPlay = true;
                       reStart();
@@ -111,9 +111,9 @@ class _HomeState extends State<Home> {
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
-                      gameLevel = "medium";
+                      gameLevel = "Medium";
                       letsPlay = true;
-                      noOfQuestion = 7;
+                      noOfQuestion = 8;
                       reStart();
                     },
                     child: Text(
@@ -133,9 +133,9 @@ class _HomeState extends State<Home> {
                   child: RaisedButton(
                     onPressed: () {
                       Navigator.pushNamed(context, '/second');
-                      gameLevel = "hard";
+                      gameLevel = "Hard";
                       letsPlay = true;
-                      noOfQuestion = 8;
+                      noOfQuestion = 10;
                       reStart();
                     },
                     child: Text(
